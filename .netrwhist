@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/tony'
+let g:netrw_dirhist_2='/Users/tony/projects/php/demo'
+let g:netrw_dirhist_1='/Users/tony/projects/php'
+let g:netrw_dirhist_0='/Users/tony/.vim/plugged/lsp/plugin'
+let g:netrw_dirhist_9='/Users/tony/.vim/plugged/lsp'
+let g:netrw_dirhist_8='/Users/tony/.vim/plugged'
+let g:netrw_dirhist_7='/Users/tony/.vim'
+let g:netrw_dirhist_6='/Users/tony/projects/php/demo'
+let g:netrw_dirhist_5='/Users/tony/projects/php/demo/src/Controller'
+let g:netrw_dirhist_4='/Users/tony/projects/php/demo/src'
