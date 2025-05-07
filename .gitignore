@@ -5,3 +5,4 @@ autoload/
 # Ignore undo files (if set with `set undodir=~/.vim/undodir`)
 undodir/
 
+.netrwhist

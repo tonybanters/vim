@@ -18,3 +18,4 @@ nnoremap <leader>fc :execute 'Rg ' . expand('%:t:r')<CR>
 
 " Find files in your Vim config
 nnoremap <leader>fi :Files ~/.vim<CR>
+
