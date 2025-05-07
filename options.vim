@@ -34,3 +34,5 @@ set scrolloff=8
 
 " Cursor responsiveness
 set updatetime=50
+
+set laststatus=2
