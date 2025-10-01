@@ -5,57 +5,57 @@
 * Keybindings
 
 ** General
-| Key             | Mode   | Action                              |
-|-----------------+--------+-------------------------------------|
-| =<Space>=       | -      | Leader key                          |
-| =<leader>cd=    | Normal | Open netrw file explorer            |
-| =<leader>rl=    | Normal | Reload vimrc                        |
-| =<leader><leader>= | Normal | Source current file              |
-| =<C-c>=         | Insert | Behave like =<Esc>=                 |
-| =Q=             | Normal | Disabled (no Ex mode)               |
+| Mode   | Key             | Action                              |
+|--------+-----------------+-------------------------------------|
+| -      | =<Space>=       | Leader key                          |
+| Normal | =<leader>cd=    | Open netrw file explorer            |
+| Normal | =<leader>rl=    | Reload vimrc                        |
+| Normal | =<leader><leader>= | Source current file              |
+| Insert | =<C-c>=         | Behave like =<Esc>=                 |
+| Normal | =Q=             | Disabled (no Ex mode)               |
 
 ** Editing
-| Key          | Mode   | Action                                 |
-|--------------+--------+----------------------------------------|
-| =J=          | Visual | Move selected lines down               |
-| =K=          | Visual | Move selected lines up                 |
-| =J=          | Normal | Join lines with cursor preserved       |
-| =<leader>p=  | Visual | Paste without overwriting clipboard    |
-| =<leader>d=  | Normal/Visual | Delete without overwriting clipboard |
-| =<leader>s=  | Normal | Substitute word under cursor on line   |
-| =<leader>x=  | Normal | Make current file executable           |
-| =<leader>dg= | Normal | Generate documentation (Doge)          |
+| Mode          | Key          | Action                                 |
+|---------------+--------------+----------------------------------------|
+| Visual        | =J=          | Move selected lines down               |
+| Visual        | =K=          | Move selected lines up                 |
+| Normal        | =J=          | Join lines with cursor preserved       |
+| Visual        | =<leader>p=  | Paste without overwriting clipboard    |
+| Normal/Visual | =<leader>d=  | Delete without overwriting clipboard   |
+| Normal        | =<leader>s=  | Substitute word under cursor on line   |
+| Normal        | =<leader>x=  | Make current file executable           |
+| Normal        | =<leader>dg= | Generate documentation (Doge)          |
 
 ** Navigation
-| Key          | Mode   | Action                           |
-|--------------+--------+----------------------------------|
-| =<C-d>=      | Normal | Scroll half-page down and center |
-| =<C-u>=      | Normal | Scroll half-page up and center   |
-| =n=          | Normal | Next search result (centered)    |
-| =N=          | Normal | Previous search result (centered)|
-| =<C-j>=      | Normal | Next location list item          |
-| =<C-k>=      | Normal | Previous location list item      |
-| =<leader>k=  | Normal | Next location list (centered)    |
-| =<leader>j=  | Normal | Previous location list (centered)|
-| =<leader>cl= | Normal | Close location list              |
+| Mode   | Key          | Action                           |
+|--------+--------------+----------------------------------|
+| Normal | =<C-d>=      | Scroll half-page down and center |
+| Normal | =<C-u>=      | Scroll half-page up and center   |
+| Normal | =n=          | Next search result (centered)    |
+| Normal | =N=          | Previous search result (centered)|
+| Normal | =<C-j>=      | Next location list item          |
+| Normal | =<C-k>=      | Previous location list item      |
+| Normal | =<leader>k=  | Next location list (centered)    |
+| Normal | =<leader>j=  | Previous location list (centered)|
+| Normal | =<leader>cl= | Close location list              |
 
 ** FZF
-| Key          | Mode   | Action                              |
-|--------------+--------+-------------------------------------|
-| =<leader>ff= | Normal | Find files                          |
-| =<leader>fo= | Normal | File history                        |
-| =<leader>fb= | Normal | Open buffers                        |
-| =<leader>fq= | Normal | Quickfix list                       |
-| =<leader>fh= | Normal | Help tags                           |
-| =<leader>fs= | Normal | Grep current word under cursor      |
-| =<leader>fg= | Normal | Grep (prompt for input)             |
-| =<leader>fc= | Normal | Grep for current filename           |
-| =<leader>fi= | Normal | Find files in =~/.vim= config       |
+| Mode   | Key          | Action                              |
+|--------+--------------+-------------------------------------|
+| Normal | =<leader>ff= | Find files                          |
+| Normal | =<leader>fo= | File history                        |
+| Normal | =<leader>fb= | Open buffers                        |
+| Normal | =<leader>fq= | Quickfix list                       |
+| Normal | =<leader>fh= | Help tags                           |
+| Normal | =<leader>fs= | Grep current word under cursor      |
+| Normal | =<leader>fg= | Grep (prompt for input)             |
+| Normal | =<leader>fc= | Grep for current filename           |
+| Normal | =<leader>fi= | Find files in =~/.vim= config       |
 
 ** Clipboard (OSCYank)
-| Key         | Mode          | Action                    |
-|-------------+---------------+---------------------------|
-| =<leader>y= | Normal/Visual | Yank via OSCYank          |
+| Mode          | Key         | Action                    |
+|---------------+-------------+---------------------------|
+| Normal/Visual | =<leader>y= | Yank via OSCYank          |
 
 * Dependencies
 
@@ -73,10 +73,24 @@
 
 ** Installation
 
-*** macOS
+*** Arch Linux
 #+begin_src bash
-brew install git vim ripgrep fd fzf
-brew install rust-analyzer  # optional
+sudo pacman -S git vim ripgrep fd fzf
+sudo pacman -S rust-analyzer  # optional
+npm install -g typescript-language-server  # optional
+#+end_src
+
+*** NixOS
+#+begin_src bash
+nix-env -iA nixpkgs.git nixpkgs.vim nixpkgs.ripgrep nixpkgs.fd nixpkgs.fzf
+nix-env -iA nixpkgs.rust-analyzer  # optional
+npm install -g typescript-language-server  # optional
+#+end_src
+
+*** Gentoo
+#+begin_src bash
+sudo emerge --ask dev-vcs/git app-editors/vim sys-apps/ripgrep sys-apps/fd app-shells/fzf
+sudo emerge --ask dev-lang/rust-bin  # for rust-analyzer
 npm install -g typescript-language-server  # optional
 #+end_src
 
@@ -84,6 +98,13 @@ npm install -g typescript-language-server  # optional
 #+begin_src bash
 sudo apt install git vim ripgrep fd-find fzf
 # Note: fd is called fd-find on Debian/Ubuntu
+#+end_src
+
+*** macOS
+#+begin_src bash
+brew install git vim ripgrep fd fzf
+brew install rust-analyzer  # optional
+npm install -g typescript-language-server  # optional
 #+end_src
 
 *** Rust Analyzer
