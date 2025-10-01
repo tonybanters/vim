@@ -1,0 +1,198 @@
+#+TITLE: Vim Configuration
+#+AUTHOR: Tony
+#+DATE: 2025
+
+* Keybindings
+
+** General
+| Key             | Mode   | Action                              |
+|-----------------+--------+-------------------------------------|
+| =<Space>=       | -      | Leader key                          |
+| =<leader>cd=    | Normal | Open netrw file explorer            |
+| =<leader>rl=    | Normal | Reload vimrc                        |
+| =<leader><leader>= | Normal | Source current file              |
+| =<C-c>=         | Insert | Behave like =<Esc>=                 |
+| =Q=             | Normal | Disabled (no Ex mode)               |
+
+** Editing
+| Key          | Mode   | Action                                 |
+|--------------+--------+----------------------------------------|
+| =J=          | Visual | Move selected lines down               |
+| =K=          | Visual | Move selected lines up                 |
+| =J=          | Normal | Join lines with cursor preserved       |
+| =<leader>p=  | Visual | Paste without overwriting clipboard    |
+| =<leader>d=  | Normal/Visual | Delete without overwriting clipboard |
+| =<leader>s=  | Normal | Substitute word under cursor on line   |
+| =<leader>x=  | Normal | Make current file executable           |
+| =<leader>dg= | Normal | Generate documentation (Doge)          |
+
+** Navigation
+| Key          | Mode   | Action                           |
+|--------------+--------+----------------------------------|
+| =<C-d>=      | Normal | Scroll half-page down and center |
+| =<C-u>=      | Normal | Scroll half-page up and center   |
+| =n=          | Normal | Next search result (centered)    |
+| =N=          | Normal | Previous search result (centered)|
+| =<C-j>=      | Normal | Next location list item          |
+| =<C-k>=      | Normal | Previous location list item      |
+| =<leader>k=  | Normal | Next location list (centered)    |
+| =<leader>j=  | Normal | Previous location list (centered)|
+| =<leader>cl= | Normal | Close location list              |
+
+** FZF
+| Key          | Mode   | Action                              |
+|--------------+--------+-------------------------------------|
+| =<leader>ff= | Normal | Find files                          |
+| =<leader>fo= | Normal | File history                        |
+| =<leader>fb= | Normal | Open buffers                        |
+| =<leader>fq= | Normal | Quickfix list                       |
+| =<leader>fh= | Normal | Help tags                           |
+| =<leader>fs= | Normal | Grep current word under cursor      |
+| =<leader>fg= | Normal | Grep (prompt for input)             |
+| =<leader>fc= | Normal | Grep for current filename           |
+| =<leader>fi= | Normal | Find files in =~/.vim= config       |
+
+** Clipboard (OSCYank)
+| Key         | Mode          | Action                    |
+|-------------+---------------+---------------------------|
+| =<leader>y= | Normal/Visual | Yank via OSCYank          |
+
+* Dependencies
+
+** Required
+- =git= - For plugin management
+- =vim= - 8.0+ recommended
+- =ripgrep= (=rg=) - Fast grep alternative for FZF
+- =fd= - Fast find alternative for FZF
+- =fzf= - Fuzzy finder
+
+** Optional
+- =rust-analyzer= - Rust LSP server
+- =typescript-language-server= - TypeScript/JavaScript LSP
+- =intelephense= - PHP LSP
+
+** Installation
+
+*** macOS
+#+begin_src bash
+brew install git vim ripgrep fd fzf
+brew install rust-analyzer  # optional
+npm install -g typescript-language-server  # optional
+#+end_src
+
+*** Linux (Debian/Ubuntu)
+#+begin_src bash
+sudo apt install git vim ripgrep fd-find fzf
+# Note: fd is called fd-find on Debian/Ubuntu
+#+end_src
+
+*** Rust Analyzer
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
+
+* Setup
+
+** 1. Clone or copy your Vim configuration
+#+begin_src bash
+git clone <your-repo> ~/.vim
+#+end_src
+
+** 2. Configure Bash/Zsh
+Add to =~/.bashrc= or =~/.zshrc=:
+
+#+begin_src bash
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+#+end_src
+
+Then source your shell config:
+#+begin_src bash
+source ~/.bashrc  # or ~/.zshrc
+#+end_src
+
+** 3. Configure fd ignore file
+Create =~/.fdignore=:
+
+#+begin_src bash
+vim ~/.fdignore
+#+end_src
+
+Add these lines:
+#+begin_src
+undodir/
+plugged/
+.git
+#+end_src
+
+** 4. Configure ripgrep ignore file
+Create =~/.rgignore=:
+
+#+begin_src bash
+vim ~/.rgignore
+#+end_src
+
+Add the same patterns:
+#+begin_src
+undodir/
+plugged/
+.git
+#+end_src
+
+** 5. Install plugins
+Open Vim and the plugins will auto-install on first run.
+
+* Plugin List
+
+| Plugin                  | Purpose                           |
+|-------------------------+-----------------------------------|
+| =junegunn/fzf=          | Fuzzy finder                      |
+| =junegunn/fzf.vim=      | FZF Vim integration               |
+| =tomasiser/vim-code-dark= | Code Dark color scheme          |
+| =ghifarit53/tokyonight-vim= | Tokyo Night color scheme      |
+| =yegappan/lsp=          | LSP client                        |
+| =ojroques/vim-oscyank=  | Copy to system clipboard via OSC52|
+| =tpope/vim-commentary=  | Comment/uncomment code            |
+| =itchyny/lightline.vim= | Statusline                        |
+
+* File Structure
+
+#+begin_example
+~/.vim/
+├── vimrc           # Main config (sources all below)
+├── options.vim     # Vim options and settings
+├── keybinds.vim    # Keybindings
+├── plugins.vim     # Plugin manager and plugin list
+├── colors.vim      # Color scheme configuration
+├── fzf.vim         # FZF configuration
+├── lightline.vim   # Lightline configuration
+└── plugged/        # Plugin installation directory
+#+end_example
+
+* Usage
+
+** Installing Plugins
+Plugins auto-install when you first start Vim. To manually reinstall, delete =~/.vim/plugged= and restart Vim.
+
+** Updating Plugins
+#+begin_src bash
+cd ~/.vim/plugged/<plugin-name>
+git pull
+#+end_src
+
+** FZF File Search
+The FZF configuration respects =.gitignore=, =.fdignore=, and =.rgignore= files automatically.
+
+Use =<leader>ff= to search files, =<leader>fg= to grep content.
+
+** LSP Servers
+Configure LSP servers in your config. Currently configured:
+- Rust: =rust-analyzer=
+- TypeScript/JavaScript: =typescript-language-server=
+- PHP: =intelephense=
+
+* Notes
+
+- The plugin manager is custom and minimal - it auto-installs plugins on Vim startup
+- =.fdignore= and =.rgignore= prevent searching through plugin directories and undo files
+- FZF uses =fd= for file listing (faster than =find=) and =rg= for content search
+- OSCYank allows copying to system clipboard even over SSH
